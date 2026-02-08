@@ -98,6 +98,7 @@ class Dashdb extends Controller
 
             $data = $request->all();
 
+            dd($data['pos']);
 
             if ($data['pos'] == 'Reception') {
                 $gadget->update([
