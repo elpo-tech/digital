@@ -34,11 +34,11 @@
                                 <div class="d-flex align-items-start justify-content-between mb-4">
                                     <div class="d-flex gap-4 align-items-center">
                                         <div class="avatar-text avatar-lg bg-gray-200">
-                                            <i class="feather-dollar-sign"></i>
+                                            <i class="feather-cast"></i>
                                         </div>
                                         <div>
-                                            <div class="fs-4 fw-bold text-dark"><span class="counter">45</span>/<span class="counter">76</span></div>
-                                            <h3 class="fs-13 fw-semibold text-truncate-1-line">Invoices Awaiting Payment</h3>
+                                            <div class="fs-4 fw-bold text-dark"><span class="counter">{{$collect->count()}}</span>/<span class="counter">{{$gadget->count()}}</span></div>
+                                            <h3 class="fs-13 fw-semibold text-truncate-1-line">Collected Gadgets</h3>
                                         </div>
                                     </div>
                                     <a href="javascript:void(0);" class="">
@@ -47,14 +47,14 @@
                                 </div>
                                 <div class="pt-4">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <a href="javascript:void(0);" class="fs-12 fw-medium text-muted text-truncate-1-line">Invoices Awaiting </a>
+                                        <a href="javascript:void(0);" class="fs-12 fw-medium text-muted text-truncate-1-line">Collected Gadgets </a>
                                         <div class="w-100 text-end">
-                                            <span class="fs-12 text-dark">$5,569</span>
-                                            <span class="fs-11 text-muted">(56%)</span>
+                                            <span class="fs-12 text-dark">Ksh. {{$collect->count()*350}}</span>
+                                            <span class="fs-11 text-muted">({{ number_format(count($collect) > 0 ? (count($collect) / count($gadget)) * 100 : 0, 2) }}%)</span>
                                         </div>
                                     </div>
                                     <div class="progress mt-2 ht-3">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 56%"></div>
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format(count($collect) > 0 ? (count($collect) / count($gadget)) * 100 : 0, 2) }}%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -68,11 +68,11 @@
                                 <div class="d-flex align-items-start justify-content-between mb-4">
                                     <div class="d-flex gap-4 align-items-center">
                                         <div class="avatar-text avatar-lg bg-gray-200">
-                                            <i class="feather-cast"></i>
+                                            <i class="feather-dollar-sign"></i>
                                         </div>
                                         <div>
-                                            <div class="fs-4 fw-bold text-dark"><span class="counter">48</span>/<span class="counter">86</span></div>
-                                            <h3 class="fs-13 fw-semibold text-truncate-1-line">Converted Leads</h3>
+                                            <div class="fs-4 fw-bold text-dark"><span class="counter">{{$paid->count()}}</span>/<span class="counter">{{$gadget->count()}}</span></div>
+                                            <h3 class="fs-13 fw-semibold text-truncate-1-line">Paid Gadgets</h3>
                                         </div>
                                     </div>
                                     <a href="javascript:void(0);" class="">
@@ -81,14 +81,14 @@
                                 </div>
                                 <div class="pt-4">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <a href="javascript:void(0);" class="fs-12 fw-medium text-muted text-truncate-1-line">Converted Leads </a>
+                                        <a href="javascript:void(0);" class="fs-12 fw-medium text-muted text-truncate-1-line">Converted Amount </a>
                                         <div class="w-100 text-end">
-                                            <span class="fs-12 text-dark">52 Completed</span>
-                                            <span class="fs-11 text-muted">(63%)</span>
+                                            <span class="fs-12 text-dark">Ksh. {{$paid->sum('amnt')}}</span>
+                                            <span class="fs-11 text-muted">({{ number_format(count($paid) > 0 ? (count($paid) / count($gadget)) * 100 : 0, 2) }}%)</span>
                                         </div>
                                     </div>
                                     <div class="progress mt-2 ht-3">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 63%"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ number_format(count($paid) > 0 ? (count($paid) / count($gadget)) * 100 : 0, 2) }}%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                             <i class="feather-briefcase"></i>
                                         </div>
                                         <div>
-                                            <div class="fs-4 fw-bold text-dark"><span class="counter">16</span>/<span class="counter">20</span></div>
+                                            <div class="fs-4 fw-bold text-dark"><span class="counter">{{$service->count()}}</span>/<span class="counter">{{count($gadget)}}</span></div>
                                             <h3 class="fs-13 fw-semibold text-truncate-1-line">Projects In Progress</h3>
                                         </div>
                                     </div>
@@ -115,14 +115,14 @@
                                 </div>
                                 <div class="pt-4">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <a href="javascript:void(0);" class="fs-12 fw-medium text-muted text-truncate-1-line">Projects In Progress </a>
+                                        <a href="javascript:void(0);" class="fs-12 fw-medium text-muted text-truncate-1-line">Gadgets In Progress </a>
                                         <div class="w-100 text-end">
-                                            <span class="fs-12 text-dark">16 Completed</span>
-                                            <span class="fs-11 text-muted">(78%)</span>
+                                            <span class="fs-12 text-dark">{{$service->count()}}</span>
+                                            <span class="fs-11 text-muted">({{ number_format(count($service) > 0 ? (count($service) / count($gadget)) * 100 : 0, 2) }}%)</span>
                                         </div>
                                     </div>
                                     <div class="progress mt-2 ht-3">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 78%"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ number_format(count($service) > 0 ? (count($service) / count($gadget)) * 100 : 0, 2) }}%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                             <i class="feather-activity"></i>
                                         </div>
                                         <div>
-                                            <div class="fs-4 fw-bold text-dark"><span class="counter">46.59</span>%</div>
+                                            <div class="fs-4 fw-bold text-dark"><span class="counter">{{ number_format($paid->sum('amnt') > 0 ? ($paid->sum('amnt') / ($gadget->count() * 350)) * 100 : 0, 2) }}</span>%</div>
                                             <h3 class="fs-13 fw-semibold text-truncate-1-line">Conversion Rate</h3>
                                         </div>
                                     </div>
@@ -151,12 +151,12 @@
                                     <div class="d-flex align-items-center justify-content-between">
                                         <a href="javascript:void(0);" class="fs-12 fw-medium text-muted text-truncate-1-line"> Conversion Rate </a>
                                         <div class="w-100 text-end">
-                                            <span class="fs-12 text-dark">$2,254</span>
-                                            <span class="fs-11 text-muted">(46%)</span>
+                                            <span class="fs-12 text-dark">Ksh. {{$paid->sum('amnt')}}</span>
+                                            <span class="fs-11 text-muted">({{ number_format(count($paid) > 0 ? (count($paid) / count($gadget)) * 100 : 0, 2) }}%)</span>
                                         </div>
                                     </div>
                                     <div class="progress mt-2 ht-3">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 46%"></div>
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ number_format(count($paid) > 0 ? (count($paid) / count($gadget)) * 100 : 0, 2) }}%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                     <div class="col-xxl-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
-                                <h5 class="card-title">Latest Collection</h5>
+                                <h5 class="card-title">Latest Gadgets</h5>
 
                             </div>
                             <div class="card-body custom-card-action p-0">
@@ -188,10 +188,11 @@
                                                 <th>Amount Paid</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
-                                                <th class="text-end">Actions</th>
+                                                <th class="text-end">Service Station</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($info as $item)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
@@ -199,114 +200,34 @@
                                                             <img src="/assets/images/avatar/1.png" alt="" class="img-fluid" />
                                                         </div>
                                                         <a href="javascript:void(0);">
-                                                            <span class="d-block">Archie Cantones</span>
-                                                            <span class="fs-12 d-block fw-normal text-muted">arcie.tones@gmail.com</span>
+                                                            <span class="d-block">{{ $item->fname }}</span>
+                                                            <span class="fs-12 d-block fw-normal text-muted">{{ $item->email }}</span>
+                                                            <span class="fs-12 d-block fw-normal text-muted">{{ $item->phone }}</span>
                                                         </a>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="badge bg-gray-200 text-dark">Sent</span>
+                                                    Ksh. {{ $item->amnt }}
                                                 </td>
-                                                <td>11/06/2023 10:53</td>
+                                                <td>{{ $item->created_at->format('Y-m-d, h:iA') }}</td>
                                                 <td>
-                                                    <span class="badge bg-soft-success text-success">Completed</span>
+                                                    <span class="badge 
+                                                     @if($item->status == 'Collected')
+                                                            bg-soft-success text-success
+                                                        @elseif($item->status == 'In Progress')
+                                                            bg-soft-danger text-danger
+                                                        @else
+                                                            bg-soft-warning text-warning
+                                                        @endif
+                                                    
+                                                    ">{{ $item->status }}</span>
                                                 </td>
                                                 <td class="text-end">
-                                                    <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
+                                                    {{$item->pos}}
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center gap-3">
-                                                        <div class="avatar-image">
-                                                            <img src="/assets/images/avatar/3.png" alt="" class="img-fluid" />
-                                                        </div>
-                                                        <a href="javascript:void(0);">
-                                                            <span class="d-block">Holmes Cherryman</span>
-                                                            <span class="fs-12 d-block fw-normal text-muted">golms.chan@gmail.com</span>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="badge bg-gray-200 text-dark">New</span>
-                                                </td>
-                                                <td>11/06/2023 10:53</td>
-                                                <td>
-                                                    <span class="badge bg-soft-primary text-primary">In Progress </span>
-                                                </td>
-                                                <td class="text-end">
-                                                    <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center gap-3">
-                                                        <div class="avatar-image">
-                                                            <img src="/assets/images/avatar/4.png" alt="" class="img-fluid" />
-                                                        </div>
-                                                        <a href="javascript:void(0);">
-                                                            <span class="d-block">Malanie Hanvey</span>
-                                                            <span class="fs-12 d-block fw-normal text-muted">lanie.nveyn@gmail.com</span>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="badge bg-gray-200 text-dark">Sent</span>
-                                                </td>
-                                                <td>11/06/2023 10:53</td>
-                                                <td>
-                                                    <span class="badge bg-soft-success text-success">Completed</span>
-                                                </td>
-                                                <td class="text-end">
-                                                    <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center gap-3">
-                                                        <div class="avatar-image">
-                                                            <img src="/assets/images/avatar/5.png" alt="" class="img-fluid" />
-                                                        </div>
-                                                        <a href="javascript:void(0);">
-                                                            <span class="d-block">Kenneth Hune</span>
-                                                            <span class="fs-12 d-block fw-normal text-muted">nneth.une@gmail.com</span>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="badge bg-gray-200 text-dark">Returning</span>
-                                                </td>
-                                                <td>11/06/2023 10:53</td>
-                                                <td>
-                                                    <span class="badge bg-soft-warning text-warning">Not Interested</span>
-                                                </td>
-                                                <td class="text-end">
-                                                    <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center gap-3">
-                                                        <div class="avatar-image">
-                                                            <img src="/assets/images/avatar/6.png" alt="" class="img-fluid" />
-                                                        </div>
-                                                        <a href="javascript:void(0);">
-                                                            <span class="d-block">Valentine Maton</span>
-                                                            <span class="fs-12 d-block fw-normal text-muted">alenine.aton@gmail.com</span>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="badge bg-gray-200 text-dark">Sent</span>
-                                                </td>
-                                                <td>11/06/2023 10:53</td>
-                                                <td>
-                                                    <span class="badge bg-soft-success text-success">Completed</span>
-                                                </td>
-                                                <td class="text-end">
-                                                    <a href="javascript:void(0);"><i class="feather-more-vertical"></i></a>
-                                                </td>
-                                            </tr>
+                                            @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>

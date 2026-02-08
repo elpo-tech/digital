@@ -15,7 +15,18 @@ class Dash extends Controller
     {
         if (Auth::check()) {
 
-            return view('dash.dashboard');
+            $info = Gadget::limit(5)->get();
+
+            $gadget = Gadget::get();
+            $collect = Gadget::where('status', 'Collected')->get();
+
+            $service = Gadget::where('status', 'In Progress')->get();
+
+            $paid = Gadget::where('amnt', '>', 0)->where('amnt', '<=', 350)->get();
+
+
+
+            return view('dash.dashboard', compact('info', 'collect', 'gadget', 'paid', 'service'));
         }
 
         return redirect('/')->with('error', 'Access Denied');

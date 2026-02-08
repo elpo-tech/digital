@@ -27,7 +27,7 @@
     <main class="nxl-container">
         <div class="nxl-content">
             <!-- [ page-header ] start -->
-            <form method="POST" action="{{route('gadget.update', $info->id)}}">
+            <form method="POST" onsubmit="return validateForm();" action="{{route('gadget.update', $info->id)}}">
                 @csrf
                 <div class="page-header">
                     <div class="page-header-left d-flex align-items-center">
@@ -85,7 +85,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="input-group">
-                                                    <select class="form-control" name="pos" data-select2-selector="status">
+                                                    <select class="form-control" name="pos" id="pos" data-select2-selector="status">
                                                         <option value="{{ $info->pos }}" selected>{{ $info->pos }}</option>
                                                         <option value="Reception">Reception</option>
                                                         <option value="Hardware">Hardware</option>
@@ -138,7 +138,7 @@
                                                     <div class="col-lg-8">
                                                         <div class="input-group">
                                                             <div class="input-group-text"><i class="feather-user"></i></div>
-                                                            <input type="text" name="fname" class="form-control" id="fullnameInput" value="{{$info->fname}}" placeholder="Name">
+                                                            <input type="text" name="fname" class="form-control" id="fname" value="{{$info->fname}}" placeholder="Name">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -551,6 +551,27 @@
             </form>
             <!-- [ Main Content ] end -->
         </div>
+        <script>
+            function validateForm() {
+                let fname = document.getElementById('fname').value.trim();
+                let email = document.getElementById('email').value.trim();
+                let phone = document.getElementById('phone').value.trim();
+                let pos = document.getElementById('pos').value.trim();
+
+                if (fname === '' || email === '' || phone === '') {
+                    alert('Please fill in Name, Email, and Phone before proceeding.');
+                    return false; // stop form submission
+                }
+
+                if (pos === 'Reception') {
+                    alert('Please The Next Service Desk Before Proceeding.');
+                    return false; // stop form submission
+                }
+
+                return true; // allow submission
+            }
+        </script>
+
         <!-- [ Footer ] start -->
         @include('dash.parts.footer')
         <!-- [ Footer ] end -->

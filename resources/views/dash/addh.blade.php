@@ -27,7 +27,7 @@
     <main class="nxl-container">
         <div class="nxl-content">
             <!-- [ page-header ] start -->
-            <form method="POST" action="{{route('gadget.hupdate', $info->id)}}">
+            <form method="POST" onsubmit="return validateForm();" action="{{route('gadget.hupdate', $info->id)}}">
                 @csrf
                 <div class="page-header">
                     <div class="page-header-left d-flex align-items-center">
@@ -85,7 +85,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="input-group">
-                                                    <select class="form-control" name="pos" data-select2-selector="status">
+                                                    <select class="form-control" name="pos" id="pos" data-select2-selector="status">
                                                         <option value="{{ $info->pos }}" selected>{{ $info->pos }}</option>
                                                         <option value="Reception">Reception</option>
                                                         <option value="Hardware">Hardware</option>
@@ -104,7 +104,7 @@
                                             <div class="col-lg-4">
                                                 <div class="input-group">
                                                     <div class="input-group-text"><i class="feather-user"></i></div>
-                                                    <input type="text" name="thw" class="form-control" value="{{$info->thw}}" placeholder="Enter Technician Name">
+                                                    <input type="text" name="thw" id="tname" class="form-control" value="{{$info->thw}}" placeholder="Enter Technician Name">
                                                 </div>
                                             </div>
                                         </div>
@@ -531,6 +531,24 @@
             </form>
             <!-- [ Main Content ] end -->
         </div>
+        <script>
+            function validateForm() {
+                let tname = document.getElementById('tname').value.trim();
+                let pos = document.getElementById('pos').value.trim();
+
+                if (tname === '') {
+                    alert('Please Enter Technician Name before proceeding.');
+                    return false; // stop form submission
+                }
+
+                if (pos === 'Hardware') {
+                    alert('Please The Next Service Desk Before Proceeding.');
+                    return false; // stop form submission
+                }
+
+                return true; // allow submission
+            }
+        </script>
         <!-- [ Footer ] start -->
         @include('dash.parts.footer')
         <!-- [ Footer ] end -->
