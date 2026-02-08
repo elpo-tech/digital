@@ -98,7 +98,7 @@ class Dashdb extends Controller
 
             $data = $request->all();
 
-            dd($data['pos']);
+            // dd($data['pos']);
 
             if ($data['pos'] == 'Reception') {
                 $gadget->update([
@@ -128,6 +128,57 @@ class Dashdb extends Controller
 
             $gadget->update([
                 'thw' => $data['thw'],
+                'pos' => $data['pos'],
+
+            ]);
+
+            Alert::success('Success', 'Gadget information updated successfully.');
+            return back();
+        }
+
+        return redirect('/')->with('error', 'Access Denied');
+    }
+
+
+    public function supdate(Request $request, $id)
+    {
+
+        if (Auth::check()) {
+            $gadget = Gadget::findOrFail($id);
+
+            $data = $request->all();
+
+            // dd($data['pos']);
+
+            if ($data['pos'] == 'Reception') {
+                $gadget->update([
+                    'rec' => '1',
+                    'hw' => '0',
+                    'sw' => '0',
+                    'status' => 'Pending',
+                ]);
+            } elseif ($data['pos'] == 'Hardware') {
+                $gadget->update([
+                    'hw' => '1',
+                    'rec' => '0',
+                    'sw' => '0',
+                    'status' => 'In Progress',
+                ]);
+            } elseif ($data['pos'] == 'Software') {
+                $gadget->update([
+                    'sw' => '1',
+                    'rec' => '0',
+                    'hw' => '0',
+                    'status' => 'In Progress',
+                ]);
+            }
+
+
+
+
+            $gadget->update([
+                'tsw' => $data['tsw'],
+                'pos' => $data['pos'],
 
             ]);
 
@@ -161,6 +212,18 @@ class Dashdb extends Controller
             $info = Gadget::findOrFail($id);
 
             return view('dash.addh', compact('info'));
+        }
+
+        return redirect('/')->with('error', 'Access Denied');
+    }
+
+    public function adds($id)
+    {
+
+        if (Auth::check()) {
+            $info = Gadget::findOrFail($id);
+
+            return view('dash.adds', compact('info'));
         }
 
         return redirect('/')->with('error', 'Access Denied');

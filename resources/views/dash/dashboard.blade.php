@@ -176,7 +176,7 @@
                     <div class="col-xxl-12">
                         <div class="card stretch stretch-full">
                             <div class="card-header">
-                                <h5 class="card-title">Latest Leads</h5>
+                                <h5 class="card-title">Latest Collection</h5>
 
                             </div>
                             <div class="card-body custom-card-action p-0">
@@ -184,8 +184,8 @@
                                     <table class="table table-hover mb-0">
                                         <thead>
                                             <tr class="border-b">
-                                                <th scope="row">Users</th>
-                                                <th>Proposal</th>
+                                                <th scope="row">Client</th>
+                                                <th>Amount Paid</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
                                                 <th class="text-end">Actions</th>
@@ -196,7 +196,7 @@
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3">
                                                         <div class="avatar-image">
-                                                            <img src="/assets/images/avatar/2.png" alt="" class="img-fluid" />
+                                                            <img src="/assets/images/avatar/1.png" alt="" class="img-fluid" />
                                                         </div>
                                                         <a href="javascript:void(0);">
                                                             <span class="d-block">Archie Cantones</span>

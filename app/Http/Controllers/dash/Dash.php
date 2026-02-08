@@ -70,7 +70,9 @@ class Dash extends Controller
     {
         if (Auth::check()) {
 
-            return view('dash.soft');
+            $info = Gadget::where('pos', 'Software')->get();
+
+            return view('dash.soft', compact('info'));
         }
 
         return redirect('/')->with('error', 'Access Denied');
@@ -90,7 +92,16 @@ class Dash extends Controller
     {
         if (Auth::check()) {
 
-            return view('dash.pay');
+
+            $info = Gadget::get();
+
+            $spaid = Gadget::where('status', 'Collected')->get();
+            $paid = Gadget::where('bal', '<=', 0)->get();
+            $unpaid = Gadget::where('bal', 350)->get();
+            $part = Gadget::where('amnt', '>', 0)->where('amnt', '<', 350)->get();
+
+
+            return view('dash.pay', compact('info', 'paid', 'spaid', 'unpaid', 'part'));
         }
 
         return redirect('/')->with('error', 'Access Denied');

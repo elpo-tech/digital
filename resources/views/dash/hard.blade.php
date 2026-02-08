@@ -74,7 +74,7 @@
                                                 <th>Client</th>
                                                 <th>Service Desk</th>
                                                 <th>Date</th>
-                                                <th>Balance</th>
+
                                                 <th>Status</th>
                                                 <th class="text-end">Actions</th>
                                             </tr>
@@ -100,7 +100,7 @@
                                                 </td>
                                                 <td class="fw-bold text-dark">{{$item->pos}}</td>
                                                 <td>{{ $item->created_at->format('Y-m-d, h:iA') }}</td>
-                                                <td><a href="javascript:void(0);">Ksh. {{ $item->bal }}</a></td>
+
                                                 <td>
                                                     <div class="badge
                                                         @if($item->status == 'Collected')

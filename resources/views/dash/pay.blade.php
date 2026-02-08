@@ -66,12 +66,29 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <a href="javascript:void(0);" class="fw-bold d-block">
-                                            <span class="d-block">Paid</span>
-                                            <span class="fs-20 fw-bold d-block">78/100</span>
+                                            <span class="d-block">Serviced</span>
+                                            <span class="fs-20 fw-bold d-block">{{ count($spaid) }}/{{ count($info) }}</span>
                                         </a>
                                         <div class="badge bg-soft-success text-success">
                                             <i class="feather-arrow-up fs-10 me-1"></i>
-                                            <span>36.85%</span>
+                                            <span>{{ number_format(count($spaid) > 0 ? (count($spaid) / count($info)) * 100 : 0, 2) }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-md-6">
+                            <div class="card stretch stretch-full">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <a href="javascript:void(0);" class="fw-bold d-block">
+                                            <span class="d-block">Paid</span>
+                                            <span class="fs-20 fw-bold d-block">{{ count($paid) }}/{{ count($info) }}</span>
+                                        </a>
+
+                                        <div class="badge bg-soft-success text-success">
+                                            <i class="feather-arrow-up fs-10 me-1"></i>
+                                            <span>{{ number_format(count($paid) > 0 ? (count($paid) / count($info)) * 100 : 0, 2) }}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -83,11 +100,11 @@
                                     <div class="d-flex align-items-center justify-content-between">
                                         <a href="javascript:void(0);" class="fw-bold d-block">
                                             <span class="d-block">Unpaid</span>
-                                            <span class="fs-20 fw-bold d-block">38/50</span>
+                                            <span class="fs-20 fw-bold d-block">{{ count($unpaid) }}/{{ count($info) }}</span>
                                         </a>
                                         <div class="badge bg-soft-danger text-danger">
                                             <i class="feather-arrow-down fs-10 me-1"></i>
-                                            <span>23.45%</span>
+                                            <span>{{ number_format(count($unpaid) > 0 ? (count($unpaid) / count($info)) * 100 : 0, 2) }}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -98,28 +115,12 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <a href="javascript:void(0);" class="fw-bold d-block">
-                                            <span class="d-block">Overdue</span>
-                                            <span class="fs-20 fw-bold d-block">15/30</span>
+                                            <span class="d-block">Pending</span>
+                                            <span class="fs-20 fw-bold d-block">{{ count($part) }}/{{ count($info) }}</span>
                                         </a>
-                                        <div class="badge bg-soft-success text-success">
-                                            <i class="feather-arrow-up fs-10 me-1"></i>
-                                            <span>25.44%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-3 col-md-6">
-                            <div class="card stretch stretch-full">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <a href="javascript:void(0);" class="fw-bold d-block">
-                                            <span class="d-block">Draft</span>
-                                            <span class="fs-20 fw-bold d-block">3/10</span>
-                                        </a>
-                                        <div class="badge bg-soft-danger text-danger">
+                                        <div class="badge bg-soft-warning text-warning">
                                             <i class="feather-arrow-down fs-10 me-1"></i>
-                                            <span>12.68%</span>
+                                            <span>{{ number_format(count($part) > 0 ? (count($part) / count($info)) * 100 : 0, 2) }}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -140,815 +141,88 @@
                                         <thead>
                                             <tr>
                                                 <th class="wd-30">
-                                                    <div class="btn-group mb-1">
-                                                        <div class="custom-control custom-checkbox ms-1">
-                                                            <input type="checkbox" class="custom-control-input" id="checkAllPayment">
-                                                            <label class="custom-control-label" for="checkAllPayment"></label>
-                                                        </div>
-                                                    </div>
+                                                    Tag
                                                 </th>
-                                                <th>Invoice</th>
+                                                <th>Brand</th>
                                                 <th>Client</th>
-                                                <th>Amount</th>
+                                                <th>Service Desk</th>
                                                 <th>Date</th>
-                                                <th>Transaction</th>
+                                                <th>Paid</th>
+                                                <th>Balance</th>
                                                 <th>Status</th>
                                                 <th class="text-end">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+
+                                            @foreach ($info as $item)
                                             <tr class="single-item">
                                                 <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_1">
-                                                            <label class="custom-control-label" for="checkBox_1"></label>
-                                                        </div>
-                                                    </div>
+                                                    {{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }}
                                                 </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#321456</a></td>
+                                                <td>{{$item->brand}}</td>
                                                 <td>
                                                     <a href="javascript:void(0)" class="hstack gap-3">
                                                         <div class="avatar-image avatar-md">
                                                             <img src="assets/images/avatar/1.png" alt="" class="img-fluid">
                                                         </div>
                                                         <div>
-                                                            <span class="text-truncate-1-line">Alexandra Della</span>
-                                                            <small class="fs-12 fw-normal text-muted">alex@example.com</small>
+                                                            <span class="text-truncate-1-line">{{ $item->fname }}</span>
+                                                            <small class="fs-12 fw-normal text-muted">{{ $item->phone }}</small>
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td class="fw-bold text-dark">$249.99 USD</td>
-                                                <td>2023-04-25, 03:42PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
+                                                <td class="fw-bold text-dark">{{$item->pos}}</td>
+                                                <td>{{ $item->created_at->format('Y-m-d, h:iA') }}</td>
+                                                <td><a href="javascript:void(0);">Ksh. {{ $item->amnt }}</a></td>
+                                                <td><a href="javascript:void(0);">Ksh. {{ $item->bal }}</a></td>
                                                 <td>
-                                                    <div class="badge bg-soft-success text-success">Complted</div>
+                                                    <div class="badge
+                                                        @if($item->status == 'Collected')
+                                                            bg-soft-success text-success
+                                                        @elseif($item->status == 'In Progress')
+                                                            bg-soft-danger text-danger
+                                                        @else
+                                                            bg-soft-warning text-warning
+                                                        @endif
+                                                    ">
+                                                        {{ $item->status }}
+                                                    </div>
+
                                                 </td>
                                                 <td>
                                                     <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
+
                                                         <div class="dropdown">
                                                             <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
                                                                 <i class="feather feather-more-horizontal"></i>
                                                             </a>
                                                             <ul class="dropdown-menu">
+
+
                                                                 <li>
                                                                     <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
+                                                                        <i class="feather feather-mail me-3"></i>
+                                                                        <span>Send Receipt</span>
                                                                     </a>
                                                                 </li>
                                                                 <li class="dropdown-divider"></li>
+
+                                                                @if(Auth::user()->type == 'admin')
                                                                 <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
+                                                                    <a class="dropdown-item" href="{{ route('delete.gadget', $item->id) }}">
                                                                         <i class="feather feather-trash-2 me-3"></i>
                                                                         <span>Delete</span>
                                                                     </a>
                                                                 </li>
+                                                                @endif
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_2">
-                                                            <label class="custom-control-label" for="checkBox_2"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#987456</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md bg-warning text-white">N</div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Nancy Elliot</span>
-                                                            <small class="fs-12 fw-normal text-muted">nancy.elliot@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$120.50 USD</td>
-                                                <td>2023-05-20, 12:23PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-warning text-warning">Unpaid</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_3">
-                                                            <label class="custom-control-label" for="checkBox_3"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#741258</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md">
-                                                            <img src="assets/images/avatar/2.png" alt="" class="img-fluid">
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Green Cute</span>
-                                                            <small class="fs-12 fw-normal text-muted">green.cute@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$300.00 USD</td>
-                                                <td>2023-01-02, 10:36AM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-success text-success">Complted</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_4">
-                                                            <label class="custom-control-label" for="checkBox_4"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#321456</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md bg-teal text-white">H</div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Henry Leach</span>
-                                                            <small class="fs-12 fw-normal text-muted">henry.leach@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$249.99 USD</td>
-                                                <td>2023-04-25, 04:22PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-success text-success">Complted</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_5">
-                                                            <label class="custom-control-label" for="checkBox_5"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#357895</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md">
-                                                            <img src="assets/images/avatar/3.png" alt="" class="img-fluid">
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Marianne Audrey</span>
-                                                            <small class="fs-12 fw-normal text-muted">marine.adrey@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$150.00 USD</td>
-                                                <td>2023-02-15, 05:23PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-success text-success">Complted</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_6">
-                                                            <label class="custom-control-label" for="checkBox_6"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#321456</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md">
-                                                            <img src="assets/images/avatar/1.png" alt="" class="img-fluid">
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Alexandra Della</span>
-                                                            <small class="fs-12 fw-normal text-muted">alex@example.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$249.99 USD</td>
-                                                <td>2023-04-25, 11:43AM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-success text-success">Complted</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_7">
-                                                            <label class="custom-control-label" for="checkBox_7"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#987456</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md bg-warning text-white">N</div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Nancy Elliot</span>
-                                                            <small class="fs-12 fw-normal text-muted">nancy.elliot@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$120.50 USD</td>
-                                                <td>2023-05-20, 03:46PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-warning text-warning">warning</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_8">
-                                                            <label class="custom-control-label" for="checkBox_8"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#741258</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md">
-                                                            <img src="assets/images/avatar/2.png" alt="" class="img-fluid">
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Green Cute</span>
-                                                            <small class="fs-12 fw-normal text-muted">green.cute@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$300.00 USD</td>
-                                                <td>2023-01-02, 02:35PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-success text-success">Complted</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_9">
-                                                            <label class="custom-control-label" for="checkBox_9"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#321456</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md bg-teal text-white">H</div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Henry Leach</span>
-                                                            <small class="fs-12 fw-normal text-muted">henry.leach@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$249.99 USD</td>
-                                                <td>2023-04-25,06:35PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-danger text-danger">Declined</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="single-item">
-                                                <td>
-                                                    <div class="item-checkbox ms-1">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input checkbox" id="checkBox_10">
-                                                            <label class="custom-control-label" for="checkBox_10"></label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><a href="invoice-view.html" class="fw-bold">#357895</a></td>
-                                                <td>
-                                                    <a href="javascript:void(0)" class="hstack gap-3">
-                                                        <div class="avatar-image avatar-md">
-                                                            <img src="assets/images/avatar/3.png" alt="" class="img-fluid">
-                                                        </div>
-                                                        <div>
-                                                            <span class="text-truncate-1-line">Marianne Audrey</span>
-                                                            <small class="fs-12 fw-normal text-muted">marianne.audrey@outlook.com</small>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="fw-bold text-dark">$150.00 USD</td>
-                                                <td>2023-02-15, 08:36PM</td>
-                                                <td><a href="javascript:void(0);">#SDEG4589SE1E</a></td>
-                                                <td>
-                                                    <div class="badge bg-soft-success text-success">Complted</div>
-                                                </td>
-                                                <td>
-                                                    <div class="hstack gap-2 justify-content-end">
-                                                        <a href="invoice-view.html" class="avatar-text avatar-md">
-                                                            <i class="feather feather-eye"></i>
-                                                        </a>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0)" class="avatar-text avatar-md" data-bs-toggle="dropdown" data-bs-offset="0,21">
-                                                                <i class="feather feather-more-horizontal"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-edit-3 me-3"></i>
-                                                                        <span>Edit</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item printBTN" href="javascript:void(0)">
-                                                                        <i class="feather feather-printer me-3"></i>
-                                                                        <span>Print</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-clock me-3"></i>
-                                                                        <span>Remind</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-archive me-3"></i>
-                                                                        <span>Archive</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-alert-octagon me-3"></i>
-                                                                        <span>Report Spam</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
-                                                                        <i class="feather feather-trash-2 me-3"></i>
-                                                                        <span>Delete</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>

@@ -1,6 +1,6 @@
 @include('dash.parts.head')
 
-<title>ELPO-TECH || Edit Gadget Hardware</title>
+<title>ELPO-TECH || Edit Gadget Software</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
     <main class="nxl-container">
         <div class="nxl-content">
             <!-- [ page-header ] start -->
-            <form method="POST" action="{{route('gadget.hupdate', $info->id)}}">
+            <form method="POST" action="{{route('gadget.supdate', $info->id)}}">
                 @csrf
                 <div class="page-header">
                     <div class="page-header-left d-flex align-items-center">
@@ -36,7 +36,7 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ URL('/dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ URL('/hardware') }}">Hardware</a></li>
+                            <li class="breadcrumb-item"><a href="{{ URL('/software') }}">Software</a></li>
                             <li class="breadcrumb-item">Edit Gadget</li>
                         </ul>
                     </div>
@@ -99,12 +99,12 @@
 
                                         <div class="row mb-4 align-items-center">
                                             <div class="col-lg-2">
-                                                <label for="mailInput" class="fw-semibold">Hardware Technician: </label>
+                                                <label for="mailInput" class="fw-semibold">Software Technician: </label>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="input-group">
                                                     <div class="input-group-text"><i class="feather-user"></i></div>
-                                                    <input type="text" name="thw" class="form-control" value="{{$info->thw}}" placeholder="Enter Technician Name">
+                                                    <input type="text" name="tsw" class="form-control" value="{{$info->tsw}}" placeholder="Enter Technician Name">
                                                 </div>
                                             </div>
                                         </div>
@@ -116,9 +116,9 @@
                                             <div class="col-lg-8">
                                                 <div class="input-group">
                                                     <textarea class="form-control" name="sdes" id="aboutInput" cols="30" rows="7" placeholder="Service Description" disabled>
-                                                    {{$info->shw}}
-                                                    {{$info->sdes}}
                                                     {{$info->ssw}}
+                                                    {{$info->sdes}}
+                                                    {{$info->shw}}
                                                     </textarea>
                                                 </div>
                                             </div>
