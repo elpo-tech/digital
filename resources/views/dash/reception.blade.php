@@ -139,9 +139,13 @@
                                                                 </li>
 
                                                                 <li>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">
+                                                                    <a class="dropdown-item" href="{{ route('send.receipt', $item->id) }}">
                                                                         <i class="feather feather-mail me-3"></i>
+                                                                        @if($item->foth1 == '1')
+                                                                        <span>Resend Receipt</span>
+                                                                        @else
                                                                         <span>Send Receipt</span>
+                                                                        @endif
                                                                     </a>
                                                                 </li>
                                                                 <li class="dropdown-divider"></li>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\dash;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RecepMail;
 use App\Models\Gadget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class Dashdb extends Controller
@@ -237,6 +239,23 @@ class Dashdb extends Controller
 
             Alert::success('Deleted', 'Gadget deleted successfully.');
             return redirect()->route('rec');
+        }
+
+        return redirect('/')->with('error', 'Access Denied');
+    }
+
+    public function recep($id)
+    {
+        if (Auth::check()) {
+            $gadget = Gadget::findOrFail($id);
+
+            Mail::to($gadget->email)->send(new RecepMail($gadget));
+
+            $gadget->update([
+                'foth1' => '1',
+            ]);
+            Alert::success('Success', 'Receipt sent successfully.');
+            return back();
         }
 
         return redirect('/')->with('error', 'Access Denied');

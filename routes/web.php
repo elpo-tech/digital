@@ -24,6 +24,7 @@ Route::get("/software", [Dash::class, "soft"])->name("soft");
 Route::get("/users", [Dash::class, "user"])->name("user");
 Route::get("/add_user", [Dash::class, "adduser"])->name("adduser");
 Route::get("/payments", [Dash::class, "pay"])->name("pay");
+Route::get("/send_receipt/{id}", [Dashdb::class, "recep"])->name("send.receipt");
 Route::POST("/gadget_update/{id}", [Dashdb::class, "update"])->name("gadget.update");
 Route::POST("/gadget_hupdate/{id}", [Dashdb::class, "hupdate"])->name("gadget.hupdate");
 Route::POST("/gadget_supdate/{id}", [Dashdb::class, "supdate"])->name("gadget.supdate");
