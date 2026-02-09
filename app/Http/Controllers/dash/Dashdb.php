@@ -4,7 +4,9 @@ namespace App\Http\Controllers\dash;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RecepMail;
+use App\Mail\UserMail;
 use App\Models\Gadget;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -256,6 +258,94 @@ class Dashdb extends Controller
             ]);
             Alert::success('Success', 'Receipt sent successfully.');
             return back();
+        }
+
+        return redirect('/')->with('error', 'Access Denied');
+    }
+
+    public function deleteuser($id)
+    {
+        if (Auth::check()) {
+            $user = User::findOrFail($id);
+            $user->delete();
+
+            Alert::success('Deleted', 'User deleted successfully.');
+            return back();
+        }
+
+        return redirect('/')->with('error', 'Access Denied');
+    }
+
+    public function adduserdb(Request $request)
+    {
+        if (Auth::check()) {
+            $data = $request->all();
+
+
+            function generateRandomPassword($length = 12)
+            {
+                $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?';
+                $password = '';
+                $maxIndex = strlen($chars) - 1;
+
+                for ($i = 0; $i < $length; $i++) {
+                    $password .= $chars[random_int(0, $maxIndex)];
+                }
+
+                return $password;
+            }
+
+
+
+            $password = generateRandomPassword(8);
+
+            $user = User::create([
+                'name' => $data['uname'],
+                'fname' => $data['fname'],
+                'phone' => $data['phone'],
+                'email' => $data['email'],
+                'password' => bcrypt($password),
+                'type' => $data['type'],
+            ]);
+
+            Mail::to($user->email)->send(new UserMail($user, $password));
+
+            Alert::success('Success', 'User added successfully.');
+            return redirect()->route('user');
+        }
+
+        return redirect('/')->with('error', 'Access Denied');
+    }
+
+
+    public function updateuser($id)
+    {
+        if (Auth::check()) {
+            $user = User::findOrFail($id);
+
+            return view('dash.updateuser', compact('user'));
+        }
+
+        return redirect('/')->with('error', 'Access Denied');
+    }
+
+    public function updateuserdb(Request $request, $id)
+    {
+        if (Auth::check()) {
+            $user = User::findOrFail($id);
+
+            $data = $request->all();
+
+            $user->update([
+                'name' => $data['uname'],
+                'fname' => $data['fname'],
+                'phone' => $data['phone'],
+                'email' => $data['email'],
+                'type' => $data['type'],
+            ]);
+
+            Alert::success('Success', 'User updated successfully.');
+            return redirect()->route('user');
         }
 
         return redirect('/')->with('error', 'Access Denied');

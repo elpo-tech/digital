@@ -13,7 +13,7 @@
 
   <!--! END:  Apps Title-->
   <!--! BEGIN: Favicon-->
-  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.PNG" />
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png" />
   <!--! END: Favicon-->
   <!--! BEGIN: Bootstrap CSS-->
   <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css" />

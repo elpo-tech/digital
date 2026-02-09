@@ -4,6 +4,7 @@ namespace App\Http\Controllers\dash;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gadget;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -93,7 +94,9 @@ class Dash extends Controller
     {
         if (Auth::check()) {
 
-            return view('dash.user');
+            $users = User::get();
+
+            return view('dash.user', compact('users'));
         }
 
         return redirect('/')->with('error', 'Access Denied');

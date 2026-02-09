@@ -29,3 +29,7 @@ Route::POST("/gadget_update/{id}", [Dashdb::class, "update"])->name("gadget.upda
 Route::POST("/gadget_hupdate/{id}", [Dashdb::class, "hupdate"])->name("gadget.hupdate");
 Route::POST("/gadget_supdate/{id}", [Dashdb::class, "supdate"])->name("gadget.supdate");
 Route::get("/delete_gadget/{id}", [Dashdb::class, "delete"])->name("delete.gadget");
+Route::get("/delete_user/{id}", [Dashdb::class, "deleteuser"])->name("delete.user");
+Route::POST("/adduser", [Dashdb::class, "adduserdb"])->name("add.user");
+Route::get("/update_user/{id}", [Dashdb::class, "updateuser"])->name("update.user");
+Route::POST("/update_user/{id}", [Dashdb::class, "updateuserdb"])->name("update.userdb");
